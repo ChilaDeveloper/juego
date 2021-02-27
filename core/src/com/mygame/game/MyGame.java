@@ -14,6 +14,8 @@ public class MyGame extends ApplicationAdapter {
 	int with;
 	int heigth;
 	Boolean dibujar;
+	int dx;
+
 	
 	@Override
 	public void create () {
@@ -23,6 +25,7 @@ public class MyGame extends ApplicationAdapter {
 		with = 0;
 		heigth = 0;
 		dibujar = true;
+		dx=10;
 
 	}
 
@@ -34,20 +37,11 @@ public class MyGame extends ApplicationAdapter {
 
 		batch.draw(img, with,  heigth);
 
-		if(with >= Gdx.app.getGraphics().getWidth()-img.getWidth()){
-			dibujar = false;
-		}
+		with = with + dx;
 
-		if(with <= 0){
-			dibujar = true;
+		if(with >= Gdx.app.getGraphics().getWidth()-img.getWidth() || with<=0){
+			dx = dx * -1;
 		}
-
-		if(dibujar){
-			with = with + 10;
-		}else{
-			with = with - 10;
-		}
-
 
 		batch.end();
 	}
