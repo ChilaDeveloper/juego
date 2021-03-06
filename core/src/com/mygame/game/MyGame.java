@@ -7,25 +7,22 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.ArrayList;
+
 public class MyGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
-	Animation animation;
-	int with;
-	int heigth;
-	Boolean dibujar;
-	int dx;
 
+	ArrayList<objeto> listaObjetos;
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-		animation = new Animation(1,img);
-		with = 0;
-		heigth = 0;
-		dibujar = true;
-		dx=10;
+
+		listaObjetos = new ArrayList<>();
+		listaObjetos.add(new objeto(0,0,10));
+		listaObjetos.add(new objeto(400,0,20));
+		listaObjetos.add(new objeto(800,0,5));
+
 
 	}
 
@@ -33,22 +30,20 @@ public class MyGame extends ApplicationAdapter {
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
 
-		batch.draw(img, with,  heigth);
 
-		with = with + dx;
-
-		if(with >= Gdx.app.getGraphics().getWidth()-img.getWidth() || with<=0){
-			dx = dx * -1;
+		for (objeto objeto: listaObjetos
+			 ) {
+			objeto.render();
 		}
 
-		batch.end();
+
+
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+//		batch.dispose();
+//		img.dispose();
 	}
 }
