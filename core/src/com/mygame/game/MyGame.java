@@ -1,60 +1,44 @@
 package com.mygame.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygame.game.pantallas.PantallaJuego;
+import com.mygame.game.utiles.Render;
 
-public class MyGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	Animation animation;
-	int with;
-	int heigth;
-	Boolean dibujar;
-	
+import java.util.ArrayList;
+
+import javax.swing.Renderer;
+
+public class MyGame extends Game {
+//	SpriteBatch batch;
+//	Texture img;
+
+//	ArrayList<objeto> listaObjetos;
+
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-		animation = new Animation(1,img);
-		with = 0;
-		heigth = 0;
-		dibujar = true;
+
+		Render.app = this;
+		Render.batch = new SpriteBatch();
+		this.setScreen(new PantallaJuego());
 
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
+		super.render();
 
-		batch.draw(img, with,  heigth);
-
-		if(with >= Gdx.app.getGraphics().getWidth()-img.getWidth()){
-			dibujar = false;
-		}
-
-		if(with <= 0){
-			dibujar = true;
-		}
-
-		if(dibujar){
-			with = with + 10;
-		}else{
-			with = with - 10;
-		}
-
-
-		batch.end();
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+
+		Render.batch.dispose();
+
 	}
 }
